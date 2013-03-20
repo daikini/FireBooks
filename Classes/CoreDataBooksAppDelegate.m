@@ -48,13 +48,15 @@
 
 #import "CoreDataBooksAppDelegate.h"
 #import "RootViewController.h"
-
+#import <Firebase/Firebase.h>
+#import <FireData/FireData.h>
 
 @interface CoreDataBooksAppDelegate ()
 
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) FireData *firedata;
 
 - (NSURL *)applicationDocumentsDirectory;
 - (void)saveContext;
@@ -77,6 +79,31 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     RootViewController *rootViewController = (RootViewController *)[[navigationController viewControllers] objectAtIndex:0];
     rootViewController.managedObjectContext = self.managedObjectContext;
+    
+    // Initialize an instance of FireData
+    FireData *firedata = [[FireData alloc] init];
+    
+    // Listen for changes from the default managed object context
+    [firedata observeManagedObjectContext:self.managedObjectContext];
+    
+    // Create a new managed object context to write changes from Firebase; set its parent to the default managed object context.
+    NSManagedObjectContext *writingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [writingContext setParentContext:self.managedObjectContext];
+    [firedata setWriteManagedObjectContext:writingContext withCompletionBlock:^(NSManagedObjectContext *context) {
+        NSError *error = nil;
+        if ([context hasChanges] && ![context save:&error]) {
+            NSLog(@"Error saving: %@", error);
+        }
+    }];
+    
+    // Get a reference to Firebase
+    Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://EXAMPLE.firebaseio.com/"];
+    
+    // Observe the `Book` Core Data entity and the `books` Firebase reference
+    [firedata observeCoreDataEntity:@"Book" firebase:[firebase childByAppendingPath:@"books"]];
+    
+    // Hold on to FireData
+    self.firedata = firedata;
 }
 
 
@@ -166,14 +193,14 @@
      Set up the store.
      For the sake of illustration, provide a pre-populated default store.
      */
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    // If the expected store doesn't exist, copy the default store.
-    if (![fileManager fileExistsAtPath:[storeURL path]]) {
-        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"CDBStore"];
-        if (defaultStoreURL) {
-            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
-        }
-    }
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    // If the expected store doesn't exist, copy the default store.
+//    if (![fileManager fileExistsAtPath:[storeURL path]]) {
+//        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"CDBStore"];
+//        if (defaultStoreURL) {
+//            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
+//        }
+//    }
 
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];

@@ -30,6 +30,14 @@
 		28C95B0C0F4F9A7F0037F30F /* EditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B0A0F4F9A7F0037F30F /* EditingViewController.m */; };
 		28C95B0F0F4F9A880037F30F /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B0E0F4F9A880037F30F /* Book.m */; };
 		28F22DE30F69AF6F0039BA5B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28F22DE20F69AF6F0039BA5B /* Localizable.strings */; };
+		ABBDD1AF16FA6CF4002D7BE3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABBDD1AE16FA6CF4002D7BE3 /* Default-568h@2x.png */; };
+		ABBDD1B516FA6EEE002D7BE3 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1B216FA6EEE002D7BE3 /* Firebase.framework */; };
+		ABBDD1B616FA6EEF002D7BE3 /* FireData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1B416FA6EEE002D7BE3 /* FireData.framework */; };
+		ABBDD1B816FA6F08002D7BE3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1B716FA6F08002D7BE3 /* CFNetwork.framework */; };
+		ABBDD1BA16FA6F0D002D7BE3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1B916FA6F0D002D7BE3 /* MobileCoreServices.framework */; };
+		ABBDD1BC16FA6F11002D7BE3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1BB16FA6F11002D7BE3 /* SystemConfiguration.framework */; };
+		ABBDD1BE16FA6F16002D7BE3 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1BD16FA6F15002D7BE3 /* libicucore.dylib */; };
+		ABBDD1C016FA70FE002D7BE3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBDD1BF16FA70FE002D7BE3 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +74,15 @@
 		28F22DE20F69AF6F0039BA5B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		ABBDD1AE16FA6CF4002D7BE3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		ABBDD1B216FA6EEE002D7BE3 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		ABBDD1B416FA6EEE002D7BE3 /* FireData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FireData.framework; sourceTree = "<group>"; };
+		ABBDD1B716FA6F08002D7BE3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		ABBDD1B916FA6F0D002D7BE3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		ABBDD1BB16FA6F11002D7BE3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		ABBDD1BD16FA6F15002D7BE3 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		ABBDD1BF16FA70FE002D7BE3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		ABBDD1C116FA73BB002D7BE3 /* CoreDataBooks 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CoreDataBooks 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +90,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBDD1C016FA70FE002D7BE3 /* Security.framework in Frameworks */,
+				ABBDD1BE16FA6F16002D7BE3 /* libicucore.dylib in Frameworks */,
+				ABBDD1BC16FA6F11002D7BE3 /* SystemConfiguration.framework in Frameworks */,
+				ABBDD1BA16FA6F0D002D7BE3 /* MobileCoreServices.framework in Frameworks */,
+				ABBDD1B816FA6F08002D7BE3 /* CFNetwork.framework in Frameworks */,
 				288832230F4D1BA200A03A78 /* CoreData.framework in Frameworks */,
 				288832280F4D1BB200A03A78 /* CoreGraphics.framework in Frameworks */,
 				2888322A0F4D1BB200A03A78 /* Foundation.framework in Frameworks */,
 				2888322C0F4D1BB200A03A78 /* UIKit.framework in Frameworks */,
+				ABBDD1B516FA6EEE002D7BE3 /* Firebase.framework in Frameworks */,
+				ABBDD1B616FA6EEF002D7BE3 /* FireData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,11 +166,13 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				ABBDD1AE16FA6CF4002D7BE3 /* Default-568h@2x.png */,
 				288F3A510F6736BA00C86E86 /* ReadMe.txt */,
 				2882F5750F4CFBA10089C43B /* View Controllers */,
 				28921A570F4CF0D0000D3C06 /* Model Class */,
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				ABBDD1B016FA6EEE002D7BE3 /* Vendor */,
 				29B97315FDCFA39411CA2CEA /* Supporting Files */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -179,6 +205,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ABBDD1BD16FA6F15002D7BE3 /* libicucore.dylib */,
+				ABBDD1BF16FA70FE002D7BE3 /* Security.framework */,
+				ABBDD1BB16FA6F11002D7BE3 /* SystemConfiguration.framework */,
+				ABBDD1B916FA6F0D002D7BE3 /* MobileCoreServices.framework */,
+				ABBDD1B716FA6F08002D7BE3 /* CFNetwork.framework */,
 				2888321D0F4D1B9C00A03A78 /* CoreAudio.framework */,
 				288832220F4D1BA200A03A78 /* CoreData.framework */,
 				288832270F4D1BB200A03A78 /* CoreGraphics.framework */,
@@ -186,6 +217,31 @@
 				2888322B0F4D1BB200A03A78 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ABBDD1B016FA6EEE002D7BE3 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				ABBDD1B116FA6EEE002D7BE3 /* Firebase */,
+				ABBDD1B316FA6EEE002D7BE3 /* FireData */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		ABBDD1B116FA6EEE002D7BE3 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				ABBDD1B216FA6EEE002D7BE3 /* Firebase.framework */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		ABBDD1B316FA6EEE002D7BE3 /* FireData */ = {
+			isa = PBXGroup;
+			children = (
+				ABBDD1B416FA6EEE002D7BE3 /* FireData.framework */,
+			);
+			path = FireData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +308,7 @@
 				18247E0711D902700022009F /* iTunesArtwork in Resources */,
 				285CE39B141C130C0083AF09 /* MainStoryboard.storyboard in Resources */,
 				288C5DB6152A0CA100D11004 /* CoreDataBooks.CDBStore in Resources */,
+				ABBDD1AF16FA6CF4002D7BE3 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +350,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/Firebase\"",
+					"\"$(SRCROOT)/Vendor/FireData\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -310,6 +372,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/Firebase\"",
+					"\"$(SRCROOT)/Vendor/FireData\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CoreDataBooks_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -328,6 +395,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -341,6 +409,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -372,9 +441,10 @@
 		2858AAB41528CA9400A1E836 /* CoreDataBooks.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				ABBDD1C116FA73BB002D7BE3 /* CoreDataBooks 2.xcdatamodel */,
 				2858AAB51528CA9400A1E836 /* CoreDataBooks.xcdatamodel */,
 			);
-			currentVersion = 2858AAB51528CA9400A1E836 /* CoreDataBooks.xcdatamodel */;
+			currentVersion = ABBDD1C116FA73BB002D7BE3 /* CoreDataBooks 2.xcdatamodel */;
 			path = CoreDataBooks.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
