@@ -103,7 +103,7 @@
     }];
     
     // Get a reference to Firebase
-    Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://cdtest.firebaseio.com/"];
+    Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://EXAMPLE.firebaseio.com/"];
     
     // Link the `Book` Core Data entity and the `books` Firebase reference
     [firedata linkCoreDataEntity:@"Book" withFirebase:[firebase childByAppendingPath:@"books"]];
