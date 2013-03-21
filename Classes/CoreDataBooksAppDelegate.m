@@ -102,6 +102,13 @@
         }];
     }];
     
+    
+//
+// Remove the line that starts with `#error` after you have filled
+// in your Firebase URL.
+//
+#error You need to fill in your Firebase URL
+    
     // Get a reference to Firebase
     Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://EXAMPLE.firebaseio.com/"];
     

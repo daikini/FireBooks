@@ -15,10 +15,10 @@ This sample assumes some familiarity with the Core Data framework, and with UIKi
 Build and runtime Requirements
 ------------------------------
 Build Requirements
-iOS 5 SDK
+iOS 6 SDK
 
 Runtime Requirements
-iOS 5 or later
+iOS 6 or later
 
 
 Running the Sample
