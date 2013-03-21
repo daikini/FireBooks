@@ -105,8 +105,8 @@
     // Get a reference to Firebase
     Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://cdtest.firebaseio.com/"];
     
-    // Observe the `Book` Core Data entity and the `books` Firebase reference
-    [firedata observeCoreDataEntity:@"Book" firebase:[firebase childByAppendingPath:@"books"]];
+    // Link the `Book` Core Data entity and the `books` Firebase reference
+    [firedata linkCoreDataEntity:@"Book" withFirebase:[firebase childByAppendingPath:@"books"]];
     
     // Check the existing data in Firebase
     [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -138,8 +138,8 @@
             [firedata replaceFirebaseFromCoreData];
         }
         
-        // Start the synchronization
-        [firedata startSync];
+        // Start observing changes between Core Data and Firebase
+        [firedata startObserving];
     }];
     
     // Hold on to FireData
