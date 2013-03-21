@@ -79,7 +79,7 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     RootViewController *rootViewController = (RootViewController *)[[navigationController viewControllers] objectAtIndex:0];
     rootViewController.managedObjectContext = self.managedObjectContext;
-    
+        
     // Initialize an instance of FireData
     FireData *firedata = [[FireData alloc] init];
     
@@ -90,17 +90,57 @@
     NSManagedObjectContext *writingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [writingContext setParentContext:self.managedObjectContext];
     [firedata setWriteManagedObjectContext:writingContext withCompletionBlock:^(NSManagedObjectContext *context) {
-        NSError *error = nil;
-        if ([context hasChanges] && ![context save:&error]) {
-            NSLog(@"Error saving: %@", error);
-        }
+        [context performBlockAndWait:^{
+            NSError *error = nil;
+            if ([context save:&error]) {
+                if (![self.managedObjectContext save:&error]) {
+                    NSLog(@"Error saving: %@", error);
+                }
+            } else {
+                NSLog(@"Error saving: %@", error);
+            }
+        }];
     }];
     
     // Get a reference to Firebase
-    Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://EXAMPLE.firebaseio.com/"];
+    Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://cdtest.firebaseio.com/"];
     
     // Observe the `Book` Core Data entity and the `books` Firebase reference
     [firedata observeCoreDataEntity:@"Book" firebase:[firebase childByAppendingPath:@"books"]];
+    
+    // Check the existing data in Firebase
+    [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        // If Firebase is empty then replace with the data from Core Data
+        if (snapshot.value == [NSNull null]) {
+            // Add the firebaseKey to the existing books if it's not already been added
+            NSPersistentStore *store = [[self persistentStoreCoordinator] persistentStoreForURL:[self persistentStoreURL]];
+            NSMutableDictionary *storeMetaData = [[store metadata] mutableCopy];
+            if (![[storeMetaData objectForKey:@"AddedFirebaseKey"] boolValue]) {
+                NSManagedObjectContext *migrationContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+                [migrationContext setParentContext:self.managedObjectContext];
+                
+                NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Book"];
+                [fetchRequest setFetchBatchSize:25];
+                NSArray *books = [migrationContext executeFetchRequest:fetchRequest error:nil];
+                [books enumerateObjectsUsingBlock:^(NSManagedObject *book, NSUInteger idx, BOOL *stop) {
+                    [book setValue:[FireData firebaseKey] forKey:@"firebaseKey"];
+                }];
+                
+                NSError *error = nil;
+                if ([migrationContext save:&error]) {
+                    [storeMetaData setObject:@(YES) forKey:@"AddedFirebaseKey"];
+                    [store setMetadata:storeMetaData];
+                } else {
+                    NSLog(@"Error adding firebaseKeys: %@", error);
+                }
+            }
+            
+            [firedata replaceFirebaseFromCoreData];
+        }
+        
+        // Start the synchronization
+        [firedata startSync];
+    }];
     
     // Hold on to FireData
     self.firedata = firedata;
@@ -176,6 +216,13 @@
     return _managedObjectModel;
 }
 
+/*
+ Returns the persistent store url
+ */
+- (NSURL *)persistentStoreURL
+{
+    return [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataBooks.CDBStore"];
+}
 
 /*
  Returns the persistent store coordinator for the application.
@@ -187,20 +234,20 @@
         return _persistentStoreCoordinator;
     }
 
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataBooks.CDBStore"];
+    NSURL *storeURL = [self persistentStoreURL];
 
     /*
      Set up the store.
      For the sake of illustration, provide a pre-populated default store.
      */
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    // If the expected store doesn't exist, copy the default store.
-//    if (![fileManager fileExistsAtPath:[storeURL path]]) {
-//        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"CDBStore"];
-//        if (defaultStoreURL) {
-//            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
-//        }
-//    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // If the expected store doesn't exist, copy the default store.
+    if (![fileManager fileExistsAtPath:[storeURL path]]) {
+        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"CDBStore"];
+        if (defaultStoreURL) {
+            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
+        }
+    }
 
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
